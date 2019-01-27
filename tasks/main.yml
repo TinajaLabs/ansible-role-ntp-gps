@@ -1,23 +1,22 @@
 ---
 # tasks file for tinaja.ntp-gps
-
-
+#
 # -------------------------------------------------- disable and stop services
-
+#
 - name: Tinajalabs NTP-GPS | Make sure hciuart is disabled and stopped
   systemd:
     name: hciuart
     enabled: false
     state: stopped
-
+#
 - name: Tinajalabs NTP-GPS | Make sure serial-getty@ttyAMA0.service is disabled and stopped
   systemd:
     name: serial-getty@ttyAMA0.service
     enabled: false
     state: stopped
-
+#
 # -------------------------------------------------- install these packages
-
+#
 - name: Tinajalabs NTP-GPS | Install packages with apt
   apt:
     name: "{{ item }}"
@@ -27,46 +26,41 @@
     - pps-tools
     - gpsd
     - gpsd-clients
-
+#
 # -------------------------------------------------- update files
-
+#
 - name: Tinajalabs NTP-GPS | Update /boot/cmdline.txt
   template:
     src: templates/cmdline.txt.j2
     dest: /boot/cmdline.txt
   when: ansible_distribution_release == "stretch"
-
-
+#
 - name: Tinajalabs NTP-GPS | Update /boot/config.txt
   template:
     src: templates/config.txt.j2
     dest: /boot/config.txt
   when: ansible_distribution_release == "stretch"
-
-
+#
 - name: Tinajalabs NTP-GPS | Update /etc/dhcp/dhclient.conf
   template:
     src: templates/dhclient.conf.j2
     dest: /etc/dhcp/dhclient.conf
   when: ansible_distribution_release == "stretch"
-
-
+#
 - name: Tinajalabs NTP-GPS | Update /etc/default/gpsd
   template:
     src: templates/gpsd.j2
     dest: /etc/default/gpsd
   when: ansible_distribution_release == "stretch"
-
-
+#
 - name: Tinajalabs NTP-GPS | Update /etc/ntp.conf
   template:
     src: templates/ntp.conf.j2
     dest: /etc/ntp.conf
   when: ansible_distribution_release == "stretch"
-
-
+#
 # -------------------------------------------------- delete files
-
+#
 - name: Tinajalabs NTP-GPS - Delete unneeded files
   file:
     path: "{{ item }}"
@@ -75,29 +69,26 @@
     - /etc/dhcp/dhclient-exit-hooks.d/ntp
     - /lib/dhcpcd/dhcpcd-hooks/50-ntp.conf
     - /var/lib/ntp/ntp.conf.dhcp
-
+#
 # -------------------------------------------------- restart services
-
+#
 - name: Tinajalabs NTP-GPS - Make sure dhcp is restarted and running
   systemd:
     name: dhcpcd
     daemon_reload: true
     enabled: true
     state: restarted
-
-
+#
 - name: Tinajalabs NTP-GPS - Make sure ntp is restarted and running
   systemd:
     name: ntp
     daemon_reload: true
     enabled: true
     state: restarted
-
-
+#
 - name: Tinajalabs NTP-GPS - Make sure gpsd is restarted and running
   systemd:
     name: gpsd
     daemon_reload: true
     enabled: true
     state: restarted
-

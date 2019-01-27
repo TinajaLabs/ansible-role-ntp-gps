@@ -48,7 +48,7 @@ Create playbook, `tinaja-ntp-gps.yml`:
          - { role: tinaja.ntp-gps }
 ```
 
-Basic Steps:
+Basic Steps
 -------------
 
 * Install Ansible - will assume this is already done...
@@ -65,6 +65,7 @@ Basic Steps:
 * Run your playbook:
 
 `$ ansible-playbook tinaja-ntp-gps.yml -i hosts/hosts.ini -u pi -b -c ssh`
+
 
 
 **Run these tests after rebooting:**
@@ -96,6 +97,7 @@ See the list of ntp servers.  The PPS reference should have an asterisk indicati
 `*SHM(2) .PPS. 0 l 1 64 377 0.000 -51.298 4.627`
 
 
+
 **On your local server**
 
 Set up the NTP server to point to the new NTP server.  Edit `/etc/ntp.cfg`:
@@ -115,6 +117,7 @@ to this:
 #server ntp.your-provider.example  
 server <your ntp server ip or fqdn>
 ```
+
 Save the file and restart the NTP service:
 
 `# systemctl restart ntp.service`
