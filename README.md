@@ -12,7 +12,7 @@ Requirements
 Designed and tested with: 
 
 * Raspberry Pi 3 Model B V1.2 running minimal version of Raspbian Stretch.
-* Adafruit Ultimate GPS Breakout V3 board.
+* [Adafruit Ultimate GPS Breakout V3 board](https://www.adafruit.com/product/746)
 
 Wiring connections:
 
@@ -110,7 +110,7 @@ Save the file and restart the NTP service:
 
 `# systemctl restart ntp.service`
 
-See the magic:
+See the magic, by running this command:
 
 `# date`
 
@@ -123,6 +123,7 @@ References
 * Raspberry Pi GPS Time - http://unixwiz.net/techtips/raspberry-pi3-gps-time.html
 * Raspberry Pi NTP - https://www.satsignal.eu/ntp/Raspberry-Pi-NTP.html
 * Stratum-1 NTP Server using Raspberry Pi - https://developers.redhat.com/blog/2017/02/22/how-to-build-a-stratum-1-ntp-server-using-a-raspberry-pi/
+* Adafruit Ultimate GPS - https://learn.adafruit.com/adafruit-ultimate-gps
 
 
 License
