@@ -17,11 +17,11 @@ Designed and tested with:
 Wiring connections:
 
 ```
-from Raspi pin:  4 (+5V)            to GPS Breakout pin: VIN +5V		
-from Raspi pin:  6 (Ground)	        to GPS Breakout pin: GND Gnd		
-from Raspi pin:  8 (TXD0) (GPIO14)	to GPS Breakout pin: RX	TX
-from Raspi pin: 10 (RXD0) (GPIO15)	to GPS Breakout pin: TX	RX
-from Raspi pin: 12 (GPIO18)	        to GPS Breakout pin: PPS (Pulses Per Second)
+from Raspi pin:  4 (+5V)            to GPS Breakout pin: VIN +5V        
+from Raspi pin:  6 (Ground)         to GPS Breakout pin: GND Gnd        
+from Raspi pin:  8 (TXD0) (GPIO14)  to GPS Breakout pin: RX TX
+from Raspi pin: 10 (RXD0) (GPIO15)  to GPS Breakout pin: TX RX
+from Raspi pin: 12 (GPIO18)         to GPS Breakout pin: PPS (Pulses Per Second)
 ```
 
 Role Variables
