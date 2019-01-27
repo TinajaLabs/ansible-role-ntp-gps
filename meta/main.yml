@@ -1,6 +1,7 @@
 galaxy_info:
+  role_name: ntp_gps
   author: Chris Jefferies
-  description: configure NTP to use GPS
+  description: Configure NTP to use GPS time signal
   company: tinajalabs.com
 
   # If the issue tracker for your role is not on github, uncomment the
@@ -50,10 +51,10 @@ galaxy_info:
     versions:
       - stretch
 
-  galaxy_tags: 
+  galaxy_tags:
     - raspberrypi
-    - ntp 
-    - gps 
+    - ntp
+    - gps
 
     # List tags for your role here, one per line. A tag is a keyword that describes
     # and categorizes the role. Users find roles by searching for tags. Be sure to
