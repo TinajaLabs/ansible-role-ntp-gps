@@ -70,27 +70,36 @@ Basic Steps:
 **Run these tests after rebooting:**
 
 Log into your raspi:
+
 `$ ssh pi@raspberrypi.local`
 
 Escalate to user, root:
+
 `# sudo su -`
 
 See the serial data streaming in from the GPS device
+
 `# cat /dev/ttyAMA0`
 
 See the /dev/pps0 device streaming in
+
 `# ppstest /dev/pps0`
 
 See the gps device statistics including the time, Latitude, Longitude from the GPS receiver
+
 `# gpsmon`
 
 See the list of ntp servers.  The PPS reference should have an asterisk indicating the primary source.
+
 `# ntpq -p`
+
 `*SHM(2) .PPS. 0 l 1 64 377 0.000 -51.298 4.627`
+
 
 **On your local server**
 
 Set up the NTP server to point to the new NTP server.  Edit `/etc/ntp.cfg`:
+
 `# nano /etc/ntp.conf`
 
 Change this:
