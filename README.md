@@ -14,6 +14,13 @@ Designed and tested with:
 * Raspberry Pi 3 Model B V1.2 running minimal version of Raspbian Stretch.
 * [Adafruit Ultimate GPS Breakout V3 board](https://www.adafruit.com/product/746)
 
+
+![Alt text](meta/RasPiB-GPIO.png?raw=true "Raspi pin out")
+
+![Alt text](meta/adafruit-gps-breakout.jpg?raw=true "NTP GPS Breakout from Adafruit")
+
+
+
 Wiring connections:
 
 ```
