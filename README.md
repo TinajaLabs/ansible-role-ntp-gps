@@ -37,6 +37,16 @@ Role Variables
 None.
 
 
+Role Templates
+-------------
+
+A set of default templates for `cmdline.txt`, `dhclient.conf`, `ntp.conf`,
+`config.txt`, and `gpsd` are provided in the `templates` subdirectory of this role.
+They should work fine for most applications.  Should local conditions dictate, you
+may optionally override them by putting equivalent-named files in
+`{{ inventory_dir }}/templates`.
+
+
 Dependencies
 ------------
 
