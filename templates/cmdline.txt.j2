@@ -1,5 +1,5 @@
 # /boot/cmdline.txt
 # {{ ansible_managed }}
 
-dwc_otg.lpm_enable=0  console=tty1 root=PARTUUID=08616e16-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+dwc_otg.lpm_enable=0  console=tty1 root=PARTUUID=08616e16-02 rootfstype=ext4 elevator=deadline fsck.repair=yes nohz=off rootwait
 
