@@ -30,11 +30,13 @@
   apt:
     name: ['ntp', 'pps-tools', 'gpsd', 'gpsd-clients']
 
-- name: Tinajalabs NTP-GPS | Remove unneeded packages with apt
-  apt:
-    name: [ 'bluez', 'triggerhappy', 'wpasupplicant', 'avahi-daemon' ]
-    state: absent
-    purge: yes
+# maybe not such a great plan after all
+# 
+#- name: Tinajalabs NTP-GPS | Remove unneeded packages with apt
+#  apt:
+#    name: [ 'bluez', 'triggerhappy', 'wpasupplicant', 'avahi-daemon' ]
+#    state: absent
+#    purge: yes
 
 #
 # -------------------------------------------------- update files
