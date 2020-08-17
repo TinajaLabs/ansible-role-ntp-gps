@@ -74,6 +74,8 @@
     dest: /etc/default/gpsd
   vars:
     sources:
+      - "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/gpsd"
+      - "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/gpsd.j2"
       - "{{ inventory_dir }}/templates/gpsd.j2"
       - "{{ role_path }}/templates/gpsd.j2"
 #
@@ -83,6 +85,8 @@
     dest: /etc/ntp.conf
   vars:
     sources:
+      - "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/ntp.conf"
+      - "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/ntp.conf.j2"
       - "{{ inventory_dir }}/templates/ntp.conf.j2"
       - "{{ role_path }}/templates/ntp.conf.j2"
 #
