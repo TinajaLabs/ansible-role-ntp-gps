@@ -1,6 +1,11 @@
 ---
 # tasks file for tinaja.ntp-gps
 #
+- name: Tinajalabs NTP-GPS | Check to see if running under supported Raspbian release
+  fail:
+    msg: not running on Buster or Stretch.
+  when: ( ansible_distribution_release != "stretch" and ansible_distribution_release != "buster" )
+
 # -------------------------------------------------- disable and stop services
 #
 - name: Tinajalabs NTP-GPS | Make sure hciuart is disabled and stopped
@@ -15,49 +20,75 @@
     enabled: false
     state: stopped
 #
-# -------------------------------------------------- install these packages
+# -------------------------------------------------- update apt and install these packages
 #
+- name: Tinajalabs NTP-GPS | Updating apt cache
+  apt:
+    update_cache: yes
+
 - name: Tinajalabs NTP-GPS | Install packages with apt
   apt:
-    name: "{{ item }}"
-    update_cache: yes
-  with_items:
-    - ntp
-    - pps-tools
-    - gpsd
-    - gpsd-clients
+    name: ['ntp', 'pps-tools', 'gpsd', 'gpsd-clients']
+
+# maybe not such a great plan after all
+# 
+#- name: Tinajalabs NTP-GPS | Remove unneeded packages with apt
+#  apt:
+#    name: [ 'bluez', 'triggerhappy', 'wpasupplicant', 'avahi-daemon' ]
+#    state: absent
+#    purge: yes
+
 #
 # -------------------------------------------------- update files
 #
 - name: Tinajalabs NTP-GPS | Update /boot/cmdline.txt
   template:
-    src: templates/cmdline.txt.j2
+    src: "{{ lookup('first_found', sources) }}"
     dest: /boot/cmdline.txt
-  when: ansible_distribution_release == "stretch"
+  vars:
+    sources:
+      - "{{ inventory_dir }}/templates/cmdline.txt.j2"
+      - "{{ role_path }}/templates/cmdline.txt.j2"
 #
 - name: Tinajalabs NTP-GPS | Update /boot/config.txt
   template:
-    src: templates/config.txt.j2
+    src: "{{ lookup('first_found', sources) }}"
     dest: /boot/config.txt
-  when: ansible_distribution_release == "stretch"
+  vars:
+    sources:
+      - "{{ inventory_dir }}/templates/config.txt.j2"
+      - "{{ role_path }}/templates/config.txt.j2"
 #
 - name: Tinajalabs NTP-GPS | Update /etc/dhcp/dhclient.conf
   template:
-    src: templates/dhclient.conf.j2
+    src: "{{ lookup('first_found', sources) }}"
     dest: /etc/dhcp/dhclient.conf
-  when: ansible_distribution_release == "stretch"
+  vars:
+    sources:
+      - "{{ inventory_dir }}/templates/dhclient.conf.j2"
+      - "{{ role_path }}/templates/dhclient.conf.j2"
 #
 - name: Tinajalabs NTP-GPS | Update /etc/default/gpsd
   template:
-    src: templates/gpsd.j2
+    src: "{{ lookup('first_found', sources) }}"
     dest: /etc/default/gpsd
-  when: ansible_distribution_release == "stretch"
+  vars:
+    sources:
+      - "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/gpsd"
+      - "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/gpsd.j2"
+      - "{{ inventory_dir }}/templates/gpsd.j2"
+      - "{{ role_path }}/templates/gpsd.j2"
 #
 - name: Tinajalabs NTP-GPS | Update /etc/ntp.conf
   template:
-    src: templates/ntp.conf.j2
+    src: "{{ lookup('first_found', sources) }}"
     dest: /etc/ntp.conf
-  when: ansible_distribution_release == "stretch"
+  vars:
+    sources:
+      - "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/ntp.conf"
+      - "{{ inventory_dir }}/host_files/{{ inventory_hostname }}/ntp.conf.j2"
+      - "{{ inventory_dir }}/templates/ntp.conf.j2"
+      - "{{ role_path }}/templates/ntp.conf.j2"
 #
 # -------------------------------------------------- delete files
 #
@@ -69,6 +100,24 @@
     - /etc/dhcp/dhclient-exit-hooks.d/ntp
     - /lib/dhcpcd/dhcpcd-hooks/50-ntp.conf
     - /var/lib/ntp/ntp.conf.dhcp
+#
+# -------------------------------------------------- log files and directories happy
+#
+- name: Tinajalabs NTP-GPS - /var/lib/ntp/ exists and is in good shape
+  file:
+    path: /var/lib/ntp
+    state: directory
+    owner: ntp
+    group: ntp
+    mode: 0755
+#
+- name: Tinajalabs NTP-GPS - /var/lib/ntp/ntp.drift exists and is in good shape
+  file:
+    path: /var/lib/ntp/ntp.drift
+    state: touch
+    owner: ntp
+    group: ntp
+    mode: 0644
 #
 # -------------------------------------------------- restart services
 #
